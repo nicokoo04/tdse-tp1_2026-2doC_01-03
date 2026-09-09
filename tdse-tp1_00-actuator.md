@@ -7,7 +7,7 @@ Un LED o salida digital puede adoptar estados de encendido, apagado o secuencias
 
 ---
 
-## Convención de Identificadores y Eventos (Paso 10)
+## Convención de Identificadores y Eventos
 * **Señales de Entrada (Signals desde System):** `EV_ACT_LED_ON`, `EV_ACT_LED_OFF` 
 * **Estados:** `ST_ACT_OFF`, `ST_ACT_ON` 
 * **Temporizadores Internos:** `tick` // `0`, `DEL_ACT_NAME` 
@@ -22,7 +22,7 @@ Un LED o salida digital puede adoptar estados de encendido, apagado o secuencias
 
 ---
 
-## Actuator Statechart - Tabla de Transición de Estados (Paso 11)
+## Actuator Statechart - Tabla de Transición de Estados
 
 A continuación se presenta la tabla de Estados y Excitaciones (*State Transition Table*) del modelo **Actuator** :
 
