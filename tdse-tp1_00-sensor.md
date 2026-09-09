@@ -36,3 +36,20 @@ Las acciones reflejan que ocurrió un cambio de posición válido y estable en e
    * **`tick = 0`**: Inicialización/reinicio del contador de tiempo al detectar un posible cambio de nivel en la entrada .
    * **`tick++`**: Incremento del temporizador en cada ciclo de 1 ms para medir la duración del estado de transición .
    * **Condición de Guarda `[tick >= DEL_BTN_NAME]`**: Se evalúa para confirmar que la señal se mantuvo estable durante el tiempo de retardo necesario, permitiendo la transición de estado definitiva .
+
+## Sensor Statechart - Tabla de Transición de Estados
+
+A continuación se presenta la tabla de Estados y Excitaciones (State Transition Table) para el modelo **Sensor** (un solo botón). Este modelo describe el comportamiento del módulo de código C de tipo temporizado (*Update by Time Code*, período = 1mS) para la tarea de escrutar el estado físico y filtrar rebotes (*debouncing*).
+
+| Current State | Event | [Guard] | Next State | Actions |
+| :--- | :--- | :--- | :--- | :--- |
+| `ST_BTN_UP` | `EV_BTN_DOWN` | - | `ST_BTN_FALLING` | `tick = 0` |
+| `ST_BTN_UP` | `EV_BTN_UP` | - | `ST_BTN_UP` | - |
+| `ST_BTN_FALLING` | `EV_BTN_DOWN` | `[tick < DEL_BTN_NAME]` | `ST_BTN_FALLING` | `tick++` |
+| `ST_BTN_FALLING` | `EV_BTN_DOWN` | `[tick >= DEL_BTN_NAME]` | `ST_BTN_DOWN` | `PutMessage(EV_SYS_BTN_PRESSED)` |
+| `ST_BTN_FALLING` | `EV_BTN_UP` | - | `ST_BTN_UP` | `tick = 0` |
+| `ST_BTN_DOWN` | `EV_BTN_UP` | - | `ST_BTN_RISING` | `tick = 0` |
+| `ST_BTN_DOWN` | `EV_BTN_DOWN` | - | `ST_BTN_DOWN` | - |
+| `ST_BTN_RISING` | `EV_BTN_UP` | `[tick < DEL_BTN_NAME]` | `ST_BTN_RISING` | `tick++` |
+| `ST_BTN_RISING` | `EV_BTN_UP` | `[tick >= DEL_BTN_NAME]` | `ST_BTN_UP` | `PutMessage(EV_SYS_BTN_RELEASED)` |
+| `ST_BTN_RISING` | `EV_BTN_DOWN` | - | `ST_BTN_DOWN` | `tick = 0` |
