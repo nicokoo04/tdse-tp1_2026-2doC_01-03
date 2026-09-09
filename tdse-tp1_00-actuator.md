@@ -1,6 +1,6 @@
 # Modelo Actuator (Un solo LED)
 
-## Descripción del Módulo (Paso 10)
+## Descripción del Módulo 
 El módulo **Actuator** es un módulo de código C del tipo temporizado (*Update by Time Code*, período = 1mS) encargado de la etapa de **actuar** (*Act*) . Su función es recibir los mensajes/señales provenientes del módulo `System` y modificar el estado físico de los actuadores de salida (por ejemplo, el LED o la barrera de acceso) .
 
 Un LED o salida digital puede adoptar estados de encendido, apagado o secuencias temporizadas utilizando temporizadores internos (`tick`) .
